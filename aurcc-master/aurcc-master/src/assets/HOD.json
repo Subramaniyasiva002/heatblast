@@ -1,0 +1,35 @@
+{
+    "departments": [
+      {
+        "name": "Dr. Manisekaran S V",
+        "department": "CSE",
+        "photo": "mani.webp"
+      },
+      {
+        "name": "Dr. Saravanakumar S",
+        "department": "EEE",
+        "photo": "Saravanakumar-S.webp"
+      },
+      {
+        "name": "Dr. N. Kumaresan",
+        "department": "ECE",
+        "photo": "Kumaresan-N.webp"
+      },
+      {
+        "name": "Dr. K. Soorya Prakash",
+        "department": "MECH",
+        "photo": "sooryaprakash.webp"
+      },
+      {
+        "name": "Dr. Subha M V",
+        "department": "MBA",
+        "photo": "subha.webp"
+      },
+      {
+        "name": "Dr. S. Mahalakshmi",
+        "department": "Science and Humanities",
+        "photo": "Dr.S.N.M - mahalakshmi subramanian.webp"
+      }
+    ]
+  }
+  

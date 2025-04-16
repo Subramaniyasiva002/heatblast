@@ -1,0 +1,22 @@
+{
+"administrator": [
+    {
+      "name": "Dr.J.Prakash",
+      "position": "Registrar",
+      "university": "Anna University, Chennai",
+      "image": "Prakash.webp"
+    },
+    {
+      "name": "Dr.P.Hariharan",
+      "position": "Director (CCC)",
+      "university": "Anna University, Chennai",
+      "image": "Hariharan.webp"
+    },
+    {
+      "name": "Dr.Saravanakumar",
+      "position": "Dean",
+      "university": "Anna University Regional Campus, Coimbatore",
+      "image": ""
+    }
+  ]
+}
