@@ -1,9 +1,16 @@
 <template>
-    <div class="mx-auto p-9">
-      <h1 class="text-xl md:text-3xl font-semibold mb-8 text-center font-serif">Dean Office Staff</h1>
-  
+  <div class="w-full">
+    <!-- Hero Section -->
+    <div class="text-center py-5 bg-blue-500 bg-opacity-90">
+      <h1 class="text-xl md:text-3xl font-semibold text-white drop-shadow-lg font-serif">
+        Dean Office Staff
+      </h1>
+    </div>
+
+    <!-- Content Section -->
+    <div class="p-6 md:p-10 bg-cover bg-center" :style="backgroundStyle">
       <div class="flex justify-center font-serif">
-        <div class="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col m-8 sm:m-6 md:m-0 items-center border-4 border-black">
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col items-center border-4 border-black hover:scale-105 transition duration-300">
           <div class="w-full flex justify-center px-2 md:px-6 pt-2 md:pt-4">
             <div class="w-40 sm:w-48 md:w-60 h-40 sm:h-48 md:h-60 overflow-hidden">
               <img
@@ -21,27 +28,39 @@
         </div>
       </div>
     </div>
-  </template>
-  
-  <script>
-  import deanOfficeData from '@/assets/deanoff.json';
-  
-  export default {
-    name: 'DeanOfficeSingle',
-    data() {
+  </div>
+</template>
+
+<script>
+import bgImage from '@/assets/aurcc_bg.webp';
+import deanOfficeData from '@/assets/deanoff.json';
+
+export default {
+  name: 'DeanOfficeSingle',
+  data() {
+    return {
+      staffMember: deanOfficeData['DEAN OFFICE STAFF'][0],
+    };
+  },
+  computed: {
+    backgroundStyle() {
       return {
-        staffMember: deanOfficeData['DEAN OFFICE STAFF'][0] // Access the first staff member in the "DEAN OFFICE STAFF" category
+        backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.88)), url(${bgImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
       };
     },
-    methods: {
-      getPhotoPath(photo) {
-        return photo ? new URL(`../assets/${photo}`, import.meta.url).href : 'default-image-path.jpg'; // Provide a default image path if the image is not available
-      }
-    }
-  };
-  </script>
-  
-  <style scoped>
-  
-  </style>
-  
+  },
+  methods: {
+    getPhotoPath(photo) {
+      return photo
+        ? new URL(`../assets/${photo}`, import.meta.url).href
+        : 'default-image-path.jpg';
+    },
+  },
+};
+</script>
+
+<style scoped>
+/* Tailwind handles all styling */
+</style>

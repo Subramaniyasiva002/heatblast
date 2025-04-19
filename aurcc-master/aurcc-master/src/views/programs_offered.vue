@@ -1,6 +1,6 @@
 <template>
   <div class="flex-grow">
-    <!-- Hero section -->
+    <!-- Hero Section (Unchanged as requested) -->
     <section 
       class="bg-cover bg-center relative w-full h-60 sm:h-80 md:h-94 animate-fadeIn" 
       :style="{ backgroundImage: `url(${backgroundImage})` }">
@@ -11,118 +11,92 @@
       </div>
     </section>
 
-    <!-- Background section below the hero -->
-    <div class="bg-gradient-to-b from-gray-100 to-blue-100 py-16 animate-fadeIn relative -z-10">
-  <div class="container mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
-    <!-- UG Programmes section -->
-    <section class="bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform hover:scale-105 hover:shadow-xl animate-popIn">
-      <h2 class="text-xl md:text-3xl text-center font-extrabold py-4 sm:py-6 bg-gradient-to-r from-blue-600 to-cyan-400 text-white animate-fadeInUp font-serif">
-        UG Programmes
-      </h2>
-      <div class="overflow-x-auto">
-        <table class="min-w-full divide-y divide-gray-200">
-          <thead class="bg-gray-100 animate-fadeIn delay-2s">
-            <tr>
-              <th scope="col" class="px-4 md:px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                S.No
-              </th>
-              <th scope="col" class="px-4 md:px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                Courses Offered
-              </th>
-              <th scope="col" class="px-4 md:px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                Intake
-              </th>
-            </tr>
-          </thead>
-          <tbody class="bg-white divide-y divide-gray-200 animate-fadeInUp">
-            <tr
-              v-for="(programme, index) in data['UG programmes']"
-              :key="index"
-              class="hover:bg-gray-100 transition-colors"
-            >
-              <td class="px-4 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                {{ programme['S.No'] }}
-              </td>
-              <td class="px-4 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                {{ programme['Courses Offered'] }}
-              </td>
-              <td class="px-4 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                {{ programme['Intake'] }}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
+    <!-- Section with aurcc_bg.webp as background -->
+    <div class="py-16" :style="aurccBgStyle">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
+        
+        <!-- UG Programs -->
+        <section class="bg-white rounded-2xl shadow-xl overflow-hidden transform transition-transform hover:scale-105 hover:shadow-2xl animate-popIn">
+          <h2 class="text-xl md:text-3xl text-center font-extrabold py-4 sm:py-6 bg-blue-600 text-white font-serif">
+            UG Programmes
+          </h2>
+          <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+              <thead class="bg-gray-100 animate-fadeIn delay-2s">
+                <tr>
+                  <th class="px-4 md:px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">S.No</th>
+                  <th class="px-4 md:px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Courses Offered</th>
+                  <th class="px-4 md:px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Intake</th>
+                </tr>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-200 animate-fadeInUp">
+                <tr v-for="(programme, index) in data['UG programmes']" :key="index" class="hover:bg-gray-100 transition-colors">
+                  <td class="px-4 sm:px-6 py-4 text-sm text-gray-900">{{ programme['S.No'] }}</td>
+                  <td class="px-4 sm:px-6 py-4 text-sm text-gray-900">{{ programme['Courses Offered'] }}</td>
+                  <td class="px-4 sm:px-6 py-4 text-sm text-gray-900">{{ programme['Intake'] }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
 
-    <!-- PG Programmes section -->
-    <section class="bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform hover:scale-105 hover:shadow-xl animate-popIn">
-      <h2 class="text-xl md:text-3xl text-center font-extrabold py-4 sm:py-6 bg-gradient-to-r from-blue-600 to-cyan-400 text-white animate-fadeInUp font-serif">
-        PG Programmes
-      </h2>
-      <div class="overflow-x-auto">
-        <table class="min-w-full divide-y divide-gray-200">
-          <thead class="bg-gray-100 animate-fadeIn delay-2s">
-            <tr>
-              <th scope="col" class="px-4 sm:px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                S.No
-              </th>
-              <th scope="col" class="px-4 sm:px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                Department
-              </th>
-              <th scope="col" class="px-4 sm:px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                Courses Offered
-              </th>
-              <th scope="col" class="px-4 sm:px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                Intake
-              </th>
-            </tr>
-          </thead>
-          <tbody class="bg-white divide-y divide-gray-200 animate-fadeInUp">
-            <tr
-              v-for="(programme, index) in data['PG programmes']"
-              :key="index"
-              class="hover:bg-gray-100 transition-colors"
-            >
-              <td class="px-4 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                {{ programme['S.No'] }}
-              </td>
-              <td class="px-4 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                {{ programme['Department'] }}
-              </td>
-              <td class="px-4 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                {{ programme['Courses Offered'] }}
-              </td>
-              <td class="px-4 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                {{ programme['Intake'] }}
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <!-- PG Programs -->
+        <section class="bg-white rounded-2xl shadow-xl overflow-hidden transform transition-transform hover:scale-105 hover:shadow-2xl animate-popIn">
+          <h2 class="text-xl md:text-3xl text-center font-extrabold py-4 sm:py-6 bg-blue-600 text-white font-serif">
+            PG Programmes
+          </h2>
+          <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+              <thead class="bg-gray-100 animate-fadeIn delay-2s">
+                <tr>
+                  <th class="px-4 sm:px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">S.No</th>
+                  <th class="px-4 sm:px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Department</th>
+                  <th class="px-4 sm:px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Courses Offered</th>
+                  <th class="px-4 sm:px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Intake</th>
+                </tr>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-200 animate-fadeInUp">
+                <tr v-for="(programme, index) in data['PG programmes']" :key="index" class="hover:bg-gray-100 transition-colors">
+                  <td class="px-4 sm:px-6 py-4 text-sm text-gray-900">{{ programme['S.No'] }}</td>
+                  <td class="px-4 sm:px-6 py-4 text-sm text-gray-900">{{ programme['Department'] }}</td>
+                  <td class="px-4 sm:px-6 py-4 text-sm text-gray-900">{{ programme['Courses Offered'] }}</td>
+                  <td class="px-4 sm:px-6 py-4 text-sm text-gray-900">{{ programme['Intake'] }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
       </div>
-    </section>
-  </div>
-</div>
-
+    </div>
   </div>
 </template>
 
 <script>
 import data from '../assets/programs_offered.json';
-import backgroundImage from '../assets/programsoffered.webp'; 
+import backgroundImage from '../assets/programsoffered.webp';
+import aurccBg from '../assets/aurcc_bg.webp';
+
 export default {
   data() {
     return {
-      data: data,
-      backgroundImage: backgroundImage,
+      data,
+      backgroundImage,
+      aurccBg,
     };
   },
+  computed: {
+    aurccBgStyle() {
+      return {
+        backgroundImage: `linear-gradient(rgba(255,255,255,0.95), rgba(255,255,255,0.95)), url(${this.aurccBg})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      };
+    }
+  }
 };
 </script>
 
 <style scoped>
-/* Enhanced styling with animations */
-
 @keyframes fadeIn {
   0% { opacity: 0; }
   100% { opacity: 1; }
@@ -143,36 +117,19 @@ export default {
   100% { opacity: 1; transform: scale(1); }
 }
 
-h1.animate-slideIn {
-  animation: slideIn 1s ease-out forwards;
-}
-
-p.animate-fadeIn {
-  animation: fadeIn 2s ease-out forwards;
-}
-
-section.animate-popIn {
-  animation: popIn 1.2s ease-out forwards;
-}
-
-h2.animate-fadeInUp {
-  animation: fadeInUp 1.5s ease-out forwards;
-}
-
-table thead th {
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-table tbody tr:hover {
-  background-color: #f9fafb;
-}
-
 .animate-fadeIn {
-  animation: fadeIn 1.5s ease-out forwards;
+  animation: fadeIn 1s ease-out forwards;
 }
 
 .animate-fadeInUp {
   animation: fadeInUp 1.5s ease-out forwards;
+}
+
+.animate-slideIn {
+  animation: slideIn 1s ease-out forwards;
+}
+
+.animate-popIn {
+  animation: popIn 1.2s ease-out forwards;
 }
 </style>
