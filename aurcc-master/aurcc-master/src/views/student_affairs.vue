@@ -16,8 +16,11 @@
       </div>
     </section>
 
-    <!-- Background section below the hero -->
-    <div class="bg-indigo-100 py-8 font-serif animate-fadeIn">
+    <!-- Content Section below the hero with background image -->
+    <div 
+      class="bg-cover bg-center py-8 font-serif animate-fadeIn" 
+      :style="{ backgroundImage: `url(${aurccBgImage})` }"
+    >
       <!-- Description section -->
       <section class="py-8 p-4 animate-popIn">
         <div class="bg-white rounded-lg shadow-md">
@@ -69,7 +72,7 @@
       </section>
 
       <!-- Office Bearers section -->
-      <section class="py-8 p-4 animate-popIn ">
+      <section class="py-8 p-4 animate-popIn">
         <h2 class="text-xl md:text-3xl text-center font-bold p-3 rounded-t-lg bg-gradient-to-r from-blue-500 to-cyan-300 animate-fadeInUp">Office Bearers</h2>
         <div class="bg-white rounded-lg shadow-md overflow-x-auto">
           <table class="min-w-full divide-y divide-gray-200 animate-fadeIn delay-2s">
@@ -111,12 +114,14 @@
 <script>
 import data from '../assets/student_affairs.json';
 import backgroundImage from '@/assets/studentaffairs.webp';  // Correct path for the image
+import aurccBgImage from '@/assets/aurcc_bg.webp'; // Background image for content section
 
 export default {
   data() {
     return {
       data: data,
       backgroundImage: backgroundImage,
+      aurccBgImage: aurccBgImage,
       sections: [],
       activeSection: null,
     };
@@ -196,6 +201,4 @@ export default {
 .animate-fadeInUp {
   animation: fadeInUp 1.5s ease-out forwards;
 }
-
-
 </style>

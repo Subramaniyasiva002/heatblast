@@ -1,95 +1,131 @@
 <template>
-  <div class="bg-indigo-100">
-    <div class="text-center md:py-6 py-3 bg-yellow-500 bg-opacity-90">
+  <div class="bg-indigo-100 min-h-screen">
+    <!-- Title Section -->
+    <div class="text-center md:py-6 py-3 bg-blue-500 bg-opacity-90">
       <h1 class="text-xl md:text-3xl font-semibold font-serif text-black">ADMINISTRATIVE STAFF</h1>
     </div>
-   <div class="container mx-auto p-9 font-serif">
-    <!-- Iterate over each general administration section -->
-    <div v-for="(section, sectionName) in administrator" :key="sectionName" class="mb-12">
-      <h2 class="text-xl md:text-3xl font-semibold mb-6 text-center">{{ sectionName }}</h2>
-      
-      <!-- Iterate over each subsection (e.g., establishment, purchase, student section) -->
-      <div v-for="(subsection, subsectionName) in section" :key="subsectionName" class="mb-8">
-        <h3 class="text-lg md:text-2xl font-semibold mb-4 text-center">{{ subsectionName.replace('_', ' ') }}</h3>
-        
-        <!-- Separate Deputy Manager and Staffs -->
-        <div v-if="subsection.DEPUTY_MANAGER" class="mb-8">
-          <h4 class="text-lg md:text-2xl font-semibold mb-2 text-center">Deputy Manager</h4>
-          <div class="flex justify-center ">
-            <div
-              v-for="member in subsection.DEPUTY_MANAGER"
-              :key="member.name"
-              class="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col m-8 sm:m-6 md:m-20 items-center border-4 border-black"
-            >
-              <div class="w-full flex justify-center px-5 md:px-8 pt-2 md:pt-4">
-                <div class="w-40 sm:w-48 md:w-60 h-40 sm:h-48 md:h-60 overflow-hidden">
-                  <img
-                    :src="getPhotoPath(member.image)"
-                    :alt="member.name"
-                    class="w-full h-full object-contain"
-                  />
-                </div>
-              </div>
-              <div class="flex-grow flex flex-col justify-center p-3 sm:p-4 md:p-6 bg-yellow-300 text-center w-full">
-                <h2 class="text-sm sm:text-lg md:text-2xl font-semibold text-black">{{ member.name }}</h2>
-                <p class="text-xs sm:text-sm md:text-lg text-gray-800">{{ member.position || 'Position not available' }}</p>
-                <p class="text-xs sm:text-sm md:text-lg text-gray-800">{{ member.email || 'Email not available' }}</p>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        <!-- Display Staffs -->
-        <div v-if="subsection.STAFFS" class="mb-8">
-          <h4 class="text-lg md:text-2xl font-semibold mb-2 text-center">Staff Members</h4>
-          <div 
-            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-4"
-          >
-            <div
-              v-for="member in subsection.STAFFS"
-              :key="member.name"
-              class="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col m-12 sm:m-6 md:m-20 items-center border-4 border-black"
-            >
-              <div class="w-full flex justify-center  pt-2 md:pt-4">
-                <div class="w-40 sm:w-48 md:w-60 h-40 sm:h-48 md:h-60 overflow-hidden">
+    <!-- Tabs -->
+    <div class="flex justify-center mt-8">
+      <div class="flex space-x-4 text-lg md:text-2xl font-semibold">
+        <button
+          v-for="(section, sectionName) in administrator"
+          :key="sectionName"
+          :class="[
+            'py-2 px-4 rounded-t-lg transition duration-300',
+            selectedTab === sectionName ? 'bg-blue-500 text-white' : 'bg-white text-blue-500 hover:bg-blue-200'
+          ]"
+          @click="selectTab(sectionName)"
+        >
+          {{ sectionName }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div
+      class="container mx-auto p-6 font-serif bg-cover bg-center bg-no-repeat"
+      :style="{ backgroundImage: `url(${backgroundImage})` }"
+    >
+      <div v-if="selectedTab && administrator[selectedTab]" class="mt-10 min-h-[80vh]">
+        <div
+          v-for="(subsection, subsectionName) in administrator[selectedTab]"
+          :key="subsectionName"
+          class="mb-8"
+        >
+          <h3 class="text-xl md:text-2xl font-bold text-center mb-6 underline underline-offset-4">
+            {{ subsectionName.replace('_', ' ') }}
+          </h3>
+
+          <!-- Deputy Manager -->
+          <div v-if="subsection.DEPUTY_MANAGER" class="mb-8">
+            <h4 class="text-lg md:text-2xl font-semibold mb-4 text-center">Deputy Manager</h4>
+            <div class="flex justify-center flex-wrap">
+              <div
+                v-for="member in subsection.DEPUTY_MANAGER"
+                :key="member.name"
+                class="bg-white rounded-lg shadow-xl m-4 p-4 w-72 border-4 border-black flex flex-col items-center hover:scale-105 transition"
+              >
+                <div class="w-40 h-40 overflow-hidden">
                   <img
                     :src="getPhotoPath(member.image)"
                     :alt="member.name"
                     class="w-full h-full object-contain"
                   />
                 </div>
-              </div>
-              <div class="flex-grow flex flex-col justify-center p-3 sm:p-4 md:p-6 bg-yellow-300 text-center w-full">
-                <h2 class="text-sm sm:text-lg md:text-2xl font-semibold text-black">{{ member.name }}</h2>
-                <p class="text-xs sm:text-sm md:text-lg text-gray-800">{{ member.position || 'Position not available' }}</p>
-                <p class="text-xs sm:text-sm md:text-lg text-gray-800">{{ member.email || 'Email not available' }}</p>
+                <div class="mt-4 text-center bg-yellow-300 p-4 w-full">
+                  <h2 class="text-lg font-semibold text-black">{{ member.name }}</h2>
+                  <p class="text-gray-800 text-sm">{{ member.position || 'Position not available' }}</p>
+                  <p class="text-gray-800 text-sm">{{ member.email || 'Email not available' }}</p>
+                </div>
               </div>
             </div>
           </div>
+
+          <!-- Staff Members -->
+          <div v-if="subsection.STAFFS">
+            <h4 class="text-lg md:text-2xl font-semibold mb-4 text-center">Staff Members</h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div
+                v-for="member in subsection.STAFFS"
+                :key="member.name"
+                class="bg-white rounded-lg shadow-xl p-4 border-4 border-black flex flex-col items-center hover:scale-105 transition"
+              >
+                <div class="w-40 h-40 overflow-hidden">
+                  <img
+                    :src="getPhotoPath(member.image)"
+                    :alt="member.name"
+                    class="w-full h-full object-contain"
+                  />
+                </div>
+                <div class="mt-4 text-center bg-yellow-300 p-4 w-full">
+                  <h2 class="text-lg font-semibold text-black">{{ member.name }}</h2>
+                  <p class="text-gray-800 text-sm">{{ member.position || 'Position not available' }}</p>
+                  <p class="text-gray-800 text-sm">{{ member.email || 'Email not available' }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
-   </div>
   </div>
 </template>
 
 <script>
 import administrationData from '@/assets/administration.json';
+import backgroundImage from '@/assets/aurcc_bg.webp';
 
 export default {
-  name: 'Administration',
+  name: 'Admin',
   data() {
     return {
-      administrator: administrationData
+      administrator: {},
+      selectedTab: ''
     };
+  },
+  mounted() {
+    // Load data and set Admin1 as default once data is ready
+    this.administrator = administrationData;
+    this.selectedTab = Object.keys(this.administrator)[0]; // Set first tab (Admin1)
   },
   methods: {
     getPhotoPath(photo) {
-      return photo ? new URL(`../assets/${photo}`, import.meta.url).href : 'default-image-path.jpg'; // Provide a default image path if the image is not available
+      return photo ? new URL(`../assets/${photo}`, import.meta.url).href : 'default-image-path.jpg';
+    },
+    selectTab(tabName) {
+      this.selectedTab = tabName;
+    }
+  },
+  computed: {
+    backgroundImage() {
+      return backgroundImage;
     }
   }
 };
 </script>
 
 <style scoped>
+/* For extra spacing/consistency if needed */
 </style>

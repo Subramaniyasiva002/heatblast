@@ -1,6 +1,6 @@
 <template>
   <main class="flex-grow">
-    <!-- Hero Section -->
+    <!-- Hero Section (Unchanged) -->
     <section 
       class="bg-cover md:bg-center relative -z-10 w-full h-60 sm:h-80 md:h-94 animate-fadeIn"
       :style="{ backgroundImage: `url(${backgroundImage})` }"
@@ -16,11 +16,11 @@
       </div>
     </section>
 
-    <!-- Vertical Tabs Section -->
-    <section class="mx-auto py-6 md:py-12 px-4 md:px-10 bg-indigo-100 rounded-lg animate-popIn">
+    <!-- Vertical Tabs Section with Dynamic Content Section Background -->
+    <section class="mx-auto py-6 md:py-12 px-4 md:px-10 bg-cover bg-center" :style="{ backgroundImage: `url(${aurccBg})` }">
       <div class="relative flex flex-col px-8 md:flex-row">
         <!-- Mobile Section Dropdown -->
-        <div class="md:hidden md:block flex-shrink-0 w-64 bg-gradient-to-r from-[#21209c] to-blue-600 rounded-lg shadow-lg p-4 mb-4 md:mb-0 md:ml-0 ml-3 top-4 h-max">
+        <div class="md:hidden flex-shrink-0 w-64 bg-gradient-to-r from-[#21209c] to-blue-600 rounded-lg shadow-lg p-4 mb-4 md:mb-0 md:ml-0 ml-3 top-4 h-max">
           <div class="relative p-4 rounded-lg text-center">
             <h2 class="text-2xl font-serif text-white font-semibold animate-slideIn">Sections</h2>
           </div>
@@ -56,32 +56,31 @@
         </div>
 
         <!-- Tab Content -->
-        <div class="w-full px-0 md:px-10  font-serif min-h-[400px] max-h-[600px] md:max-h-[800px] overflow-y-auto">
-           <!-- About Library Section -->
-            <div v-if="activeSection === 'About Library'" ref="AboutLibrary" class="bg-white rounded-lg shadow-lg p-4 md:p-6 mb-16 animate-fadeIn">
-              <h3 class="text-2xl md:text-3xl font-bold text-black mb-4">About Library</h3>
-              <p class="text-base text-lg md:text-xl rounded-b-lg">{{ libraryData.description }}</p>
-            </div>
+        <div class="w-full px-0 md:px-10 font-serif min-h-[400px] max-h-[600px] md:max-h-[800px] overflow-y-auto">
+          <!-- About Library Section -->
+          <div v-if="activeSection === 'About Library'" ref="AboutLibrary" class="bg-white rounded-lg shadow-lg p-4 md:p-6 mb-16 animate-fadeIn">
+            <h3 class="text-2xl md:text-3xl font-bold text-black mb-4">About Library</h3>
+            <p class="text-base text-lg md:text-xl rounded-b-lg">{{ libraryData.description }}</p>
+          </div>
 
-            <!-- E-journals Section -->
-            <div v-if="activeSection === 'E-journals'" ref="EJournals" class="bg-white rounded-lg shadow-lg p-4 md:p-6 mb-16 animate-fadeIn">
-              <h3 class="text-2xl md:text-3xl font-bold text-black mb-4">E-journals</h3>
-              <p class="text-base text-lg md:text-xl mb-4 rounded-b-lg">{{ libraryData.e_journals.description }}</p>
-              <ul class="list-disc pl-5 text-sm md:text-xl text-gray-900 mb-4">
-                <li v-for="feature in libraryData.e_journals.library_salient_features" :key="feature" class="mb-2">
-                  {{ feature }}
-                </li>
-              </ul>
-              <p class="text-lg md:text-xl font-semibold mb-2">Library Services:</p>
-              <ul class="list-disc pl-5 text-sm md:text-xl text-gray-900">
-                <li v-for="service in libraryData.e_journals.library_services" :key="service" class="mb-2">
-                  {{ service }}
-                </li>
-              </ul>
-            </div>
+          <!-- E-journals Section -->
+          <div v-if="activeSection === 'E-journals'" ref="EJournals" class="bg-white rounded-lg shadow-lg p-4 md:p-6 mb-16 animate-fadeIn">
+            <h3 class="text-2xl md:text-3xl font-bold text-black mb-4">E-journals</h3>
+            <p class="text-base text-lg md:text-xl mb-4 rounded-b-lg">{{ libraryData.e_journals.description }}</p>
+            <ul class="list-disc pl-5 text-sm md:text-xl text-gray-900 mb-4">
+              <li v-for="feature in libraryData.e_journals.library_salient_features" :key="feature" class="mb-2">
+                {{ feature }}
+              </li>
+            </ul>
+            <p class="text-lg md:text-xl font-semibold mb-2">Library Services:</p>
+            <ul class="list-disc pl-5 text-sm md:text-xl text-gray-900">
+              <li v-for="service in libraryData.e_journals.library_services" :key="service" class="mb-2">
+                {{ service }}
+              </li>
+            </ul>
+          </div>
 
-            <!-- Other sections... -->
-            <!-- Library Resources Section with Responsive Table -->
+          <!-- Other sections... -->
           <div v-if="activeSection === 'Library Resources'" ref="LibraryResources" class="bg-white rounded-lg shadow-lg p-4 md:p-6 mb-16 animate-fadeIn">
             <h3 class="text-2xl md:text-3xl font-bold text-black mb-4">Library Resources</h3>
             <p class="text-base md:text-xl mb-4 rounded-b-lg">{{ libraryData.library_resources.description }}</p>
@@ -130,50 +129,6 @@
             </div>
           </div>
 
-          <!-- Digital Library Section -->
-          <div v-if="activeSection === 'Digital Library'" ref="DigitalLibrary" class="bg-white rounded-lg shadow-lg p-4 md:p-6 mb-16 animate-fadeIn">
-            <h3 class="text-2xl md:text-3xl font-bold text-black mb-4">Digital Library</h3>
-            <p class="text-base md:text-xl mb-4">{{ libraryData.digital_library.description }}</p>
-            <ul class="list-disc pl-5 text-sm md:text-lg text-gray-900 space-y-2">
-              <li>{{ libraryData.digital_library.e_resources }}</li>
-              <li>{{ libraryData.digital_library.multimedia }}</li>
-            </ul>
-          </div>
-
-          <!-- Open Access Resources Section -->
-          <div v-if="activeSection === 'Open Access Resources'" ref="OpenAccessResources" class="bg-white rounded-lg shadow-lg p-4 md:p-6 mb-16 animate-fadeIn">
-            <h3 class="text-2xl md:text-3xl font-bold text-black mb-4">Open Access Resources</h3>
-            <ul class="list-disc pl-5 text-sm md:text-xl text-gray-900 space-y-2">
-              <li v-for="resource in libraryData.open_access_resources" :key="resource">{{ resource }}</li>
-            </ul>
-          </div>
-
-          <!-- Library Sections -->
-          <div v-if="activeSection === 'Library Sections'" ref="LibrarySections" class="bg-white rounded-lg shadow-lg p-4 md:p-6 mb-16 animate-fadeIn">
-            <h3 class="text-2xl md:text-3xl font-bold text-black mb-4">Library Sections</h3>
-            <div class="space-y-4">
-              <div v-for="(content, title) in libraryData.library_section" :key="title" 
-                class="p-4 bg-gray-100 rounded-lg">
-                <h4 class="text-lg md:text-xl font-semibold mb-2">{{ formatTitle(title) }}</h4>
-                <p class="text-sm md:text-base">{{ content }}</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Faculty Section -->
-          <div v-if="activeSection === 'Faculty'" ref="Faculty" class="bg-white rounded-lg shadow-lg p-4 md:p-6 mb-16 animate-fadeIn">
-            <h3 class="text-2xl md:text-3xl font-bold text-black mb-4">Faculty</h3>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
-              <div
-                v-for="faculty in libraryData.faculty"
-                :key="faculty.name"
-                class="bg-gray-50 rounded-md shadow p-4 animate-fadeIn hover:bg-gray-100 transition-colors duration-200"
-              >
-                <h4 class="text-lg md:text-xl font-semibold mb-2">{{ faculty.name }}</h4>
-                <p class="text-sm md:text-base text-gray-700">{{ faculty.designation }}</p>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -182,13 +137,15 @@
 
 
 <script>
-import backgroundImage from '@/assets/library.webp';
+import backgroundImage from '@/assets/library.webp'; // Hero section background image
+import aurccBg from '@/assets/aurcc_bg.webp'; // Content section background image
 import libraryData from '../assets/library.json';
 
 export default {
   data() {
     return {
       backgroundImage,
+      aurccBg, // Use this variable for the content section background
       libraryData,
       sections: [
         'About Library',
@@ -200,8 +157,6 @@ export default {
         'Faculty'
       ],
       activeSection: 'About Library',
-      loading: true, // New loading state
-      error: null // New error state
     };
   },
   mounted() {
@@ -212,10 +167,8 @@ export default {
       try {
         // Simulate fetching data
         await new Promise(resolve => setTimeout(resolve, 1000));
-        this.loading = false; // Data loaded successfully
       } catch (err) {
-        this.error = 'Failed to load library data.'; // Set error message
-        this.loading = false; // Stop loading
+        console.error('Failed to load library data:', err);
       }
     },
     scrollToSection(section) {
@@ -225,17 +178,37 @@ export default {
       }
       this.activeSection = section;
     },
-    formatTitle(str) {
-      return str
-        .split('_')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ');
+    formatTitle(title) {
+      return title.replace(/([A-Z])/g, ' $1').trim();
     }
   }
 };
 </script>
 
-<style scoped>
 
-/* Additional styles */
+<style scoped>
+/* Adjustments to customize layout and appearance */
+.container {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 768px) {
+  /* Ensure responsive and consistent styling for larger devices */
+  .animate-slideIn {
+    animation: slideIn 0.5s ease-in-out;
+  }
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateX(-100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+}
 </style>
